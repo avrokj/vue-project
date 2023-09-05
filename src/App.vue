@@ -1,6 +1,7 @@
 <script setup>
 import { fakeStoreAPI } from '../api/fakeStore';
 import { onMounted, ref } from 'vue';
+import ProductCard from './components/ProductCard.vue';
 
 const products = ref(null);
 
@@ -11,10 +12,15 @@ onMounted(async () => {
 </script>
 
 <template>
-  <article v-for="product in products?.data" :key="product.id"> <!-- toode toodete seas -->
-    <img :src="product.image" alt="" >
-    <h4>{{ product.title }}</h4>
-    <p>{{ product.description }}</p>
-    <p>Hind: {{ product.price }}</p>
-  </article>
+  <div class="product-grid">
+    <ProductCard v-for="product in products?.data" :key="product.id" :product="product" />
+  </div>
 </template>
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+</style>
